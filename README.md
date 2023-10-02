@@ -1,0 +1,1 @@
+This repository contains my code from following along with the book [Crafting Interpreters](https://www.craftinginterpreters.com/) by Robert Nystrom. It may also contain code I become inspired to write based on that experience.
