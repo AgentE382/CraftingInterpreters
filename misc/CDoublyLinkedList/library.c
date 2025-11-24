@@ -65,6 +65,14 @@
 #define STR_EQ(a, b) (a == b || strcmp(a, b) == 0)
 
 
+Error new_node(const char *string, Node **out) {
+    Node *new_struct;
+    ALLOC_STRUCT(Node)
+    new_struct->data = string;
+    *out = new_struct;
+    return SUCCESS;
+}
+
 Error insert(List *l, Node *node, Node *new_node, const Position position) {
     CHECK_LIST_NONNULL(l)
     CHECK_SEARCH_ARGUMENT(node)

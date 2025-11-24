@@ -41,6 +41,7 @@ typedef enum Position {
     BEFORE,
 } Position;
 
+Error new_node(const char *string, Node **out);
 Error insert(List *l, Node *node, Node *new_node, Position position);
 inline Error insert_after(List *l, Node *node, Node *new_node) {return insert(l, node, new_node, AFTER);}
 inline Error insert_before(List *l, Node *node, Node *new_node) {return insert(l, node, new_node, BEFORE);}
