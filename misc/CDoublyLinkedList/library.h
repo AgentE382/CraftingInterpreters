@@ -31,7 +31,23 @@ typedef enum Error {
     NO_VALID_SEARCH_TERM = -5,
     ALLOC_FAILED = -6,
     EMPTY_LIST = -7,
+    OUTPUT_INVALID = -8,
+    INVALID_POSITION = -9,
+    NO_STRING_PROVIDED = -10,
 } Error;
+
+typedef enum Position {
+    AFTER,
+    BEFORE,
+} Position;
+
+Error insert(List *l, Node *node, Node *new_node, Position position);
+inline Error insert_after(List *l, Node *node, Node *new_node) {return insert(l, node, new_node, AFTER);}
+inline Error insert_before(List *l, Node *node, Node *new_node) {return insert(l, node, new_node, BEFORE);}
+inline Error insert_end(List *l, Node *new_node) {return insert(l, l->tail, new_node, AFTER);}
+inline Error insert_beginning(List *l, Node *new_node) {return insert(l, l->head, new_node, BEFORE);}
+Error remove(List *l, Node *node);
+Error find(const List *l, const char *string, Node **out);
 
 /*
 Error new(List **out);

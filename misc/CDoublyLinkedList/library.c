@@ -1,6 +1,5 @@
 #include "library.h"
 
-#include <stdio.h>
 #include <string.h>
 #include <malloc.h>
 #include <stdlib.h>
@@ -65,6 +64,97 @@
 
 #define STR_EQ(a, b) (a == b || strcmp(a, b) == 0)
 
+
+Error insert(List *l, Node *node, Node *new_node, const Position position) {
+    CHECK_LIST_NONNULL(l)
+    CHECK_SEARCH_ARGUMENT(node)
+    if (new_node == NULL || new_node->data == NULL) {
+        return NO_STRING_PROVIDED;
+    }
+    switch (position) {
+        case BEFORE:
+            if (l->head == node) {
+                l->head = new_node;
+            }
+            new_node->next = node;
+            new_node->prev = node->prev;
+            node->prev = new_node;
+            return SUCCESS;
+        case AFTER:
+            if (l->tail == node) {
+                l->tail = new_node;
+            }
+            new_node->prev = node;
+            new_node->next = node->next;
+            node->next = new_node;
+            return SUCCESS;
+        default:
+            return INVALID_POSITION;
+    }
+}
+
+Error remove(List *l, Node *node) {
+    // preliminary error checks
+    CHECK_LIST(l)
+    CHECK_SEARCH_ARGUMENT(node)
+    // removing the first node in the list
+    if (node == l->head) {
+        l->head = node->next;
+    }
+    // removing the last node in the list
+    if (node == l->tail) {
+        l->tail = node->prev;
+    }
+    // update circular pointers
+    if (node->next != NULL) {
+        node->next->prev = node->prev;
+    }
+    if (node->prev != NULL) {
+        node->prev->next = node->next;
+    }
+    CLEAR_NODE(node)
+    return SUCCESS;
+}
+
+Error find(const List *l, const char *string, Node **out) {
+    // only variable
+    Node *node = nullptr;
+    // preliminary error checks
+    CHECK_LIST(l)
+    CHECK_SEARCH_ARGUMENT(string)
+    if (out == NULL) {
+        return OUTPUT_INVALID;
+    }
+    // traverse either direction just in case - should only ever need first loop
+    if (l->head != NULL) {
+        node = l->head;
+        while (node != NULL) {
+            if (STR_EQ(node->data, string)) {
+                *out = node;
+                return SUCCESS;
+            }
+            node = node->next;
+        }
+        if (node != l->tail) {
+            return NULL_WHILE_ITERATING;
+        }
+        return NO_RESULT;
+    }
+    if (l->tail != NULL) {
+        node = l->tail;
+        while (node != NULL) {
+            if (STR_EQ(node->data, string)) {
+                *out = node;
+            }
+            node = node->prev;
+        }
+        if (node != l->head) {
+            return NULL_WHILE_ITERATING;
+        }
+        return NO_RESULT;
+    }
+    return NULL_WHILE_ITERATING;
+}
 
 /*
 Error new(List **out) {
