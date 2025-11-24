@@ -53,6 +53,7 @@
 #define STR_EQ(a, b) (a == b || strcmp(a, b) == 0)
 
 
+/*
 int new(List **out) {
     ALLOC_STRUCT(List)
 }
@@ -246,3 +247,4 @@ int delete_index(Node *head, const ssize_t index) {
     }
     return EXIT_SUCCESS;
 }
+*/

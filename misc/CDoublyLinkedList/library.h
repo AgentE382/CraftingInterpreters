@@ -32,6 +32,7 @@ typedef enum Error {
     EMPTY_LIST = -7,
 } Error;
 
+/*
 int new(List **out);
 // int init(List *out, size_t maxlen);
 int append(List *l, const char *x);
@@ -50,5 +51,6 @@ int pop_left(List *l, const char **out);
 int remove(List *l, const char *x);
 // int reverse(List *l);
 int rotate(List *l, ssize_t n);
+*/
 
 #endif //CDOUBLYLINKEDLIST_LIBRARY_H
