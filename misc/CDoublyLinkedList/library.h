@@ -23,6 +23,7 @@ typedef struct List {
 
 
 typedef enum Error {
+    SUCCESS = 0,
     NO_RESULT = -1,
     NOT_A_LIST = -2,
     NULL_WHILE_ITERATING = -3,
@@ -33,7 +34,7 @@ typedef enum Error {
 } Error;
 
 /*
-int new(List **out);
+Error new(List **out);
 // int init(List *out, size_t maxlen);
 int append(List *l, const char *x);
 int append_left(List *l, const char *x);

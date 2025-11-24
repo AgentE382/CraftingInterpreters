@@ -12,20 +12,33 @@
     if (result == NULL) {                    \
         return ALLOC_FAILED;                 \
     }                                        \
-    *out = (TypeName *)result;               \
-    return EXIT_SUCCESS;
+    new_struct = (TypeName *)result;
 
 #define ALLOC_NODE(ptr)            \
-    int err;                       \
+    Error err;                     \
     if ((err = alloc(&l->head))) { \
         free(l->head);             \
         return err;                \
     }
 
-#define CHECK_LIST(l)      \
+#define CHECK_LIST_NONNULL(l) \
     if (l == NULL) {       \
         return NOT_A_LIST; \
     }
+
+#define CHECK_LIST_NONEMPTY(l) \
+    if (!l->len) {          \
+        return EMPTY_LIST;  \
+    }
+
+#define CHECK_LIST(l)      \
+    CHECK_LIST_NONNULL(l)    \
+    CHECK_LIST_NONEMPTY(l)
+
+#define CHECK_SEARCH_ARGUMENT(a)     \
+    if (a == NULL) {                 \
+        return NO_VALID_SEARCH_TERM; \
+    }                                \
 
 #define CHECK_NODE(n)                \
     if (n == NULL) {                 \
@@ -54,12 +67,18 @@
 
 
 /*
-int new(List **out) {
+Error new(List **out) {
+    List *new_struct;
     ALLOC_STRUCT(List)
+    *out = new_struct;
+    return SUCCESS;
 }
 
-static int alloc(Node **out) {
+static Error alloc(Node **out) {
+    Node *new_struct;
     ALLOC_STRUCT(Node)
+    *out = new_struct;
+    return SUCCESS;
 }
 
 int append(List *l, const char *x) {
