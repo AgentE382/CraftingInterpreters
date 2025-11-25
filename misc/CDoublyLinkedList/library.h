@@ -47,7 +47,7 @@ inline Error insert_after(List *l, Node *node, Node *new_node) {return insert(l,
 inline Error insert_before(List *l, Node *node, Node *new_node) {return insert(l, node, new_node, BEFORE);}
 inline Error insert_end(List *l, Node *new_node) {return insert(l, l->tail, new_node, AFTER);}
 inline Error insert_beginning(List *l, Node *new_node) {return insert(l, l->head, new_node, BEFORE);}
-Error remove(List *l, Node *node);
+Error remove_node(List *l, Node *node);
 Error find(const List *l, const char *string, Node **out);
 
 /*

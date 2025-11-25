@@ -101,7 +101,7 @@ Error insert(List *l, Node *node, Node *new_node, const Position position) {
     }
 }
 
-Error remove(List *l, Node *node) {
+Error remove_node(List *l, Node *node) {
     // preliminary error checks
     CHECK_LIST(l)
     CHECK_SEARCH_ARGUMENT(node)
