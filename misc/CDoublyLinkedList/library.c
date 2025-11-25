@@ -8,7 +8,7 @@
 
 #define ALLOC_STRUCT(TypeName)               \
     void *result = malloc(sizeof(TypeName)); \
-    if (result == NULL) {                    \
+    if (result == nullptr) {                 \
         return ALLOC_FAILED;                 \
     }                                        \
     new_struct = (TypeName *)result;
@@ -21,8 +21,8 @@
     }
 
 #define CHECK_LIST_NONNULL(l) \
-    if (l == NULL) {       \
-        return NOT_A_LIST; \
+    if (l == nullptr) {       \
+        return NOT_A_LIST;    \
     }
 
 #define CHECK_LIST_NONEMPTY(l) \
@@ -35,12 +35,12 @@
     CHECK_LIST_NONEMPTY(l)
 
 #define CHECK_SEARCH_ARGUMENT(a)     \
-    if (a == NULL) {                 \
+    if (a == nullptr) {              \
         return NO_VALID_SEARCH_TERM; \
     }                                \
 
 #define CHECK_NODE(n)                \
-    if (n == NULL) {                 \
+    if (n == nullptr) {              \
         return NULL_WHILE_ITERATING; \
     }
 
@@ -49,10 +49,10 @@
         n = n->dir;      \
     }
 
-#define CLEAR_NODE(n) \
-    n->next = NULL;   \
-    n->prev = NULL;   \
-    n->data = 0;      \
+#define CLEAR_NODE(n)  \
+    n->next = nullptr; \
+    n->prev = nullptr; \
+    n->data = 0;       \
     free(n);
 
 #define CLEAR_DIR(n, t, dir) \
@@ -76,7 +76,7 @@ Error new_node(const char *string, Node **out) {
 Error insert(List *l, Node *node, Node *new_node, const Position position) {
     CHECK_LIST_NONNULL(l)
     CHECK_SEARCH_ARGUMENT(node)
-    if (new_node == NULL || new_node->data == NULL) {
+    if (new_node == nullptr || new_node->data == nullptr) {
         return NO_STRING_PROVIDED;
     }
     switch (position) {
@@ -114,10 +114,10 @@ Error remove_node(List *l, Node *node) {
         l->tail = node->prev;
     }
     // update circular pointers
-    if (node->next != NULL) {
+    if (node->next != nullptr) {
         node->next->prev = node->prev;
     }
-    if (node->prev != NULL) {
+    if (node->prev != nullptr) {
         node->prev->next = node->next;
     }
     CLEAR_NODE(node)
@@ -130,13 +130,13 @@ Error find(const List *l, const char *string, Node **out) {
     // preliminary error checks
     CHECK_LIST(l)
     CHECK_SEARCH_ARGUMENT(string)
-    if (out == NULL) {
+    if (out == nullptr) {
         return OUTPUT_INVALID;
     }
     // traverse either direction just in case - should only ever need first loop
-    if (l->head != NULL) {
+    if (l->head != nullptr) {
         node = l->head;
-        while (node != NULL) {
+        while (node != nullptr) {
             if (STR_EQ(node->data, string)) {
                 *out = node;
                 return SUCCESS;
@@ -148,9 +148,9 @@ Error find(const List *l, const char *string, Node **out) {
         }
         return NO_RESULT;
     }
-    if (l->tail != NULL) {
+    if (l->tail != nullptr) {
         node = l->tail;
-        while (node != NULL) {
+        while (node != nullptr) {
             if (STR_EQ(node->data, string)) {
                 *out = node;
             }
