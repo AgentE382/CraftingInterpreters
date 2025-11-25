@@ -65,6 +65,16 @@
 #define STR_EQ(a, b) (a == b || strcmp(a, b) == 0)
 
 
+Error new_list(List **out) {
+    List *l;
+    ALLOC_STRUCT(List, l)
+    l->head = nullptr;
+    l->tail = nullptr;
+    l->len = 0;
+    *out = l;
+    return SUCCESS;
+}
+
 Error new_node(const char *string, Node **out) {
     Node *n;
     ALLOC_STRUCT(Node, n)
