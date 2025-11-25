@@ -6,12 +6,12 @@
 #include <stdbool.h>
 
 
-#define ALLOC_STRUCT(TypeName)               \
+#define ALLOC_STRUCT(TypeName, var_name)               \
     void *result = malloc(sizeof(TypeName)); \
     if (result == nullptr) {                 \
         return ALLOC_FAILED;                 \
     }                                        \
-    new_struct = (TypeName *)result;
+    var_name = (TypeName *)result;
 
 #define ALLOC_NODE(ptr)            \
     Error err;                     \
@@ -66,10 +66,12 @@
 
 
 Error new_node(const char *string, Node **out) {
-    Node *new_struct;
-    ALLOC_STRUCT(Node)
-    new_struct->data = string;
-    *out = new_struct;
+    Node *n;
+    ALLOC_STRUCT(Node, n)
+    n->next = nullptr;
+    n->prev = nullptr;
+    n->data = string;
+    *out = n;
     return SUCCESS;
 }
 
