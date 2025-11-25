@@ -26,12 +26,12 @@
     }
 
 #define CHECK_LIST_NONEMPTY(l) \
-    if (!l->len) {          \
-        return EMPTY_LIST;  \
+    if (!l->len) {             \
+        return EMPTY_LIST;     \
     }
 
 #define CHECK_LIST(l)      \
-    CHECK_LIST_NONNULL(l)    \
+    CHECK_LIST_NONNULL(l)  \
     CHECK_LIST_NONEMPTY(l)
 
 #define CHECK_SEARCH_ARGUMENT(a)     \
