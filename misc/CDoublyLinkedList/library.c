@@ -87,6 +87,7 @@ Error insert(List *l, Node *node, Node *new_node, const Position position) {
             new_node->next = node;
             new_node->prev = node->prev;
             node->prev = new_node;
+            l->len++;
             return SUCCESS;
         case AFTER:
             if (l->tail == node) {
@@ -95,6 +96,7 @@ Error insert(List *l, Node *node, Node *new_node, const Position position) {
             new_node->prev = node;
             new_node->next = node->next;
             node->next = new_node;
+            l->len++;
             return SUCCESS;
         default:
             return INVALID_POSITION;
@@ -120,6 +122,7 @@ Error remove_node(List *l, Node *node) {
     if (node->prev != nullptr) {
         node->prev->next = node->next;
     }
+    l->len--;
     CLEAR_NODE(node)
     return SUCCESS;
 }
