@@ -206,6 +206,34 @@ Error find(const List *const l, const char *const string, Node **out) {
     return NULL_WHILE_ITERATING;
 }
 
+Error delete_list(List *l) {
+    CHECK_LIST_NONNULL(l)
+    Node *n, *t;
+    bool found = false;
+    if ((n = l->head) != nullptr) {
+        while (n) {
+            if (n == l->tail) {
+                found = true;
+            }
+            t = n->next;
+            CLEAR_NODE(n)
+            n = t;
+        }
+    }
+    if (!found && (n = l->tail) != nullptr) {
+        while (n->prev) {
+            t = n->prev;
+            CLEAR_NODE(n)
+            n = t;
+        }
+    }
+    l->head = nullptr;
+    l->tail = nullptr;
+    l->len = 0;
+    free(l);
+    return SUCCESS;
+}
+
 /*
 Error new(List **out) {
     List *new_struct;

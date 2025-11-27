@@ -50,6 +50,7 @@ inline Error insert_end(List *l, Node *new_node) {return insert(l, l->tail, new_
 inline Error insert_beginning(List *l, Node *new_node) {return insert(l, l->head, new_node, BEFORE);}
 Error remove_node(List *l, Node *node);
 Error find(const List *l, const char *string, Node **out);
+Error delete_list(List *l);
 
 /*
 Error new(List **out);
