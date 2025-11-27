@@ -86,6 +86,9 @@ Error new_list(List **out) {
 Error new_node(const char *string, Node **out) {
     Node *n;
     // preliminary error checks
+    if (string == nullptr) {
+        return NO_STRING_PROVIDED;
+    }
     CHECK_OUTPUT(out);
     // actually do the work
     ALLOC_STRUCT(Node, n)
@@ -98,7 +101,6 @@ Error new_node(const char *string, Node **out) {
 
 Error insert(List *l, Node *node, Node *new_node, const Position position) {
     CHECK_LIST_NONNULL(l)
-    CHECK_SEARCH_ARGUMENT(node)
     if (new_node == nullptr || new_node->data == nullptr) {
         return NO_STRING_PROVIDED;
     }
