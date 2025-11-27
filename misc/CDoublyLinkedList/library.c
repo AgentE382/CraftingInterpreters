@@ -79,11 +79,12 @@ Error new_list(List **out) {
     l->head = nullptr;
     l->tail = nullptr;
     l->len = 0;
+    // pass new pointer to caller
     *out = l;
     return SUCCESS;
 }
 
-Error new_node(const char *string, Node **out) {
+Error new_node(const char *const string, Node **out) {
     Node *n;
     // preliminary error checks
     if (string == nullptr) {
@@ -167,7 +168,7 @@ Error remove_node(List *l, Node *node) {
     return SUCCESS;
 }
 
-Error find(const List *l, const char *string, Node **out) {
+Error find(const List *const l, const char *const string, Node **out) {
     // only variable
     Node *node = nullptr;
     // preliminary error checks
