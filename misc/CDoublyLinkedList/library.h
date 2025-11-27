@@ -12,7 +12,7 @@
 typedef struct Node {
     struct Node *next;
     struct Node *prev;
-    const char *data;
+    char *data;
 } Node;
 
 typedef struct List {

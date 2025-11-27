@@ -94,7 +94,12 @@ Error new_node(const char *string, Node **out) {
     ALLOC_STRUCT(Node, n)
     n->next = nullptr;
     n->prev = nullptr;
-    n->data = string;
+    n->data = (char *)malloc(strlen(string) + 1);
+    if (n->data == nullptr) {
+        return ALLOC_FAILED;
+    }
+    strcpy(n->data, string);
+    // pass new pointer to caller
     *out = n;
     return SUCCESS;
 }
