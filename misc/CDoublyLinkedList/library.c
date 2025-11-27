@@ -44,6 +44,11 @@
         return NULL_WHILE_ITERATING; \
     }
 
+#define CHECK_OUTPUT(out)      \
+    if (out == nullptr) {      \
+        return OUTPUT_INVALID; \
+    }
+
 #define FIND_END(n, dir) \
     while (n->dir) {     \
         n = n->dir;      \
@@ -67,6 +72,9 @@
 
 Error new_list(List **out) {
     List *l;
+    // preliminary error checks
+    CHECK_OUTPUT(out);
+    // actually do the work
     ALLOC_STRUCT(List, l)
     l->head = nullptr;
     l->tail = nullptr;
@@ -77,6 +85,9 @@ Error new_list(List **out) {
 
 Error new_node(const char *string, Node **out) {
     Node *n;
+    // preliminary error checks
+    CHECK_OUTPUT(out);
+    // actually do the work
     ALLOC_STRUCT(Node, n)
     n->next = nullptr;
     n->prev = nullptr;
@@ -145,9 +156,7 @@ Error find(const List *l, const char *string, Node **out) {
     // preliminary error checks
     CHECK_LIST(l)
     CHECK_SEARCH_ARGUMENT(string)
-    if (out == nullptr) {
-        return OUTPUT_INVALID;
-    }
+    CHECK_OUTPUT(out);
     // traverse either direction just in case - should only ever need first loop
     if (l->head != nullptr) {
         node = l->head;
