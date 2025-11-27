@@ -106,21 +106,31 @@ Error insert(List *l, Node *node, Node *new_node, const Position position) {
     }
     switch (position) {
         case BEFORE:
-            if (l->head == node) {
+            if (l->head == node || l->head == nullptr) {
                 l->head = new_node;
             }
-            new_node->next = node;
-            new_node->prev = node->prev;
-            node->prev = new_node;
+            if (l->tail == nullptr) {
+                l->tail = new_node;
+            }
+            if (node != nullptr) {
+                new_node->next = node;
+                new_node->prev = node->prev;
+                node->prev = new_node;
+            }
             l->len++;
             return SUCCESS;
         case AFTER:
-            if (l->tail == node) {
+            if (l->tail == node || l->tail == nullptr) {
                 l->tail = new_node;
             }
-            new_node->prev = node;
-            new_node->next = node->next;
-            node->next = new_node;
+            if (l->head == nullptr) {
+                l->head = new_node;
+            }
+            if (node != nullptr) {
+                new_node->prev = node;
+                new_node->next = node->next;
+                node->next = new_node;
+            }
             l->len++;
             return SUCCESS;
         default:
