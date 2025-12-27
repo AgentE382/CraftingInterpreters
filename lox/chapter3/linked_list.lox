@@ -1,0 +1,141 @@
+class ListNode {
+    init() {
+        this.next = nil;
+        this.data = nil;
+    }
+}
+
+class LinkedList {
+    init() {
+       this.head = nil;
+    }
+    get_tail(list_node) {
+        if (list_node == nil) {
+            return nil;
+        }
+        while (list_node.next != nil) {
+            list_node = list_node.next;
+        }
+        return list_node;
+    }
+    find(data_or_node) {
+        if (data_or_node == nil) {
+            return nil;
+        }
+        var current_node = this.head;
+        while (current_node != nil) {
+            if (current_node == data_or_node or current_node.data == data_or_node) {
+                return current_node;
+            }
+            current_node = current_node.next;
+        }
+        return nil;
+    }
+    get(index) {
+        if (index < -1 or this.head == nil) {
+            return nil;
+        }
+        if (index == -1) {
+            return this.get_tail();
+        }
+        var current_node = this.head;
+        for (var i = 0; i < index; i = i + 1) {
+            if (current_node.next != nil) {
+                current_node = current_node.next;
+            }
+        }
+        return current_node;
+    }
+    append(data) {
+        if (data == nil) {
+            return nil;
+        }
+        var new_node = ListNode();
+        new_node.data = data;
+        if (this.head == nil) {
+            this.head = new_node;
+            return true;
+        }
+        this.get_tail(this.head).next = new_node;
+    }
+    prepend(data) {
+        if (data == nil) {
+            return nil;
+        }
+        var new_node = ListNode();
+        new_node.data = data;
+        new_node.next = this.head;
+        this.head = new_node;
+        return true;
+    }
+    remove(data_or_node) {
+        if (data_or_node == nil) {
+            return nil;
+        }
+        var current_node = this.head;
+        while (current_node != nil) {
+            var next_node = current_node.next;
+            if (next_node == data_or_node or next_node.data == data_or_node) {
+                current_node.next = next_node.next;
+                return true;
+            }
+            current_node = current_node.next;
+        }
+        return nil;
+    }
+    insert(data, index_or_node) {
+        if (index_or_node < -1 or this.head == nil) {
+            return nil;
+        }
+        var new_node = ListNode();
+        new_node.data = data;
+        if (index_or_node == 0) {
+            return this.prepend(new_node);
+        }
+        if (index_or_node == -1) {
+            return this.append(new_node);
+        }
+        var current_node = this.head;
+        for (var i = 0; i != index_or_node; i = i + 1) {
+            if (current_node == index_or_node) {
+                new_node.next = current_node.next;
+                current_node.next = new_node;
+                return true;
+            }
+            if (current_node.next != nil) {
+                current_node = current_node.next;
+            }
+        }
+        new_node.next = current_node.next;
+        current_node.next = new_node;
+        return true;
+    }
+    print_list() {
+        print "[";
+        if (this.head != nil) {
+            var first_print = true;
+            var current_node = this.head;
+            while (current_node != nil) {
+                if (!first_print) {
+                    print ", ";
+                }
+                print current_node.data;
+                current_node = current_node.next;
+                first_print = false;
+            }
+        }
+        print "]\n";
+    }
+}
+
+var test_list = LinkedList();
+for (var i = 0; i < 10; i = i + 1) {
+    test_list.append(i);
+}
+test_list.print_list();
+test_list.remove(5);
+test_list.print_list();
+test_list.append(13);
+test_list.print_list();
+test_list.prepend(-8);
+test_list.print_list();

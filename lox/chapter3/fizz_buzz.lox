@@ -1,0 +1,22 @@
+fun modulo(i, mod) {
+    // divide by repeated subtraction
+    for (var j = 0; i >= mod; i = i - mod) {}
+    return i;
+}
+
+for (var i = 1; i <= 100; i = i + 1) {
+    var mod_3 = modulo(i, 3) == 0;
+    var mod_5 = modulo(i, 5) == 0;
+    if (mod_3 and mod_5) {
+        print "FizzBuzz";
+    }
+    else if (mod_3) {
+        print "Fizz";
+    }
+    else if (mod_5) {
+        print "Buzz";
+    } else {
+        print i;
+    }
+    
+}

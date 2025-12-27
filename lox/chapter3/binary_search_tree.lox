@@ -1,0 +1,96 @@
+class TreeNode {
+    init() {
+        this.left = nil;
+        this.right = nil;
+        this.key = nil;
+    }
+    search(key) {
+        var current = this;
+        while (current != nil and current.key != key) {
+            if (key < current.key) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+        }
+        return current;
+    }
+    maximum() {
+        var current = this;
+        while (current.right != nil) {
+            current = current.right;
+        }
+        return current;
+    }
+    minimum() {
+        var current = this;
+        while (current.left != nil) {
+            current = current.left;
+        }
+        return current;
+    }
+}
+
+class BinarySearchTree {
+    init() {
+        this.root = nil;
+    }
+    search(key) {
+        if (this.root != nil) {
+            return this.root.search(key);
+        }
+        return nil;
+    }
+    maximum() {
+        if (this.root != nil) {
+            return this.root.maximum();
+        }
+        return nil;
+    }
+    minimum() {
+        if (this.root != nil) {
+            return this.root.minimum();
+        }
+        return nil;
+    }
+    insert(node) {
+        if (this.root != nil) {
+            return this.root.insert(node);
+        }
+        return nil;
+    }
+    delete(node) {
+        if (this.root != nil) {
+            return this.root.delete(node);
+        }
+        return nil;
+    }
+    print_list() {
+        print "[";
+        if (this.head != nil) {
+            var first_print = true;
+            var current_node = this.head;
+            while (current_node != nil) {
+                if (!first_print) {
+                    print ", ";
+                }
+                print current_node.data;
+                current_node = current_node.next;
+                first_print = false;
+            }
+        }
+        print "]\n";
+    }
+}
+
+var test_list = LinkedList();
+for (var i = 0; i < 10; i = i + 1) {
+    test_list.append(i);
+}
+test_list.print_list();
+test_list.remove(5);
+test_list.print_list();
+test_list.append(13);
+test_list.print_list();
+test_list.prepend(-8);
+test_list.print_list();
