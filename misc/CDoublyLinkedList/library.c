@@ -20,6 +20,9 @@
         return err;                \
     }
 
+#define NEW_LIST_ON_STACK(name) \
+    List name = {nullptr, nullptr, 0}
+
 #define CHECK_LIST_NONNULL(l) \
     if (l == nullptr) {       \
         return NOT_A_LIST;    \
